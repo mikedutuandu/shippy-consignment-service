@@ -11,9 +11,9 @@ import (
 
 	"golang.org/x/net/context"
 
-	pb "github.com/EwanValentine/shippy-consignment-service/proto/consignment"
-	userService "github.com/EwanValentine/shippy-user-service/proto/auth"
-	vesselProto "github.com/EwanValentine/shippy-vessel-service/proto/vessel"
+	pb "github.com/mikedutuandu/shippy-consignment-service/proto/consignment"
+	userService "github.com/mikedutuandu/shippy-user-service/proto/auth"
+	vesselProto "github.com/mikedutuandu/shippy-vessel-service/proto/vessel"
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/metadata"
 	"github.com/micro/go-micro/server"
