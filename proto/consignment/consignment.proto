@@ -1,11 +1,10 @@
-// consignment-service/proto/consignment/consignment.proto
 syntax = "proto3";
 
 package consignment;
 
-service ConsignmentService {
-  rpc Create(Consignment) returns (Response) {}
-  rpc Get(GetRequest) returns (Response) {}
+service ShippingService {
+  rpc CreateConsignment(Consignment) returns (Response) {}
+  rpc GetConsignments(GetRequest) returns (Response) {}
 }
 
 message Consignment {
@@ -20,7 +19,6 @@ message Container {
   string id = 1;
   string customer_id = 2;
   string origin = 3;
-
   string user_id = 4;
 }
 
