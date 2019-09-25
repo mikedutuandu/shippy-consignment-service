@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	defaultHost = "datastore:27017"
+	defaultHost = "mongodb+srv://admin:AAC0w4Q6jvNv4r8Z@bookingcluster-tgpah.gcp.mongodb.net/test?retryWrites=true&w=majority"
 )
 
 var (
@@ -24,13 +24,13 @@ var (
 
 func main() {
 	// Set-up micro instance
-	srv := micro.NewService(
+	service := micro.NewService(
 		micro.Name("shippy.consignment.service"),
-		micro.Version("latest"),
-		micro.WrapHandler(AuthWrapper),
+		//micro.Version("latest"),
+		//micro.WrapHandler(AuthWrapper),
 	)
 
-	srv.Init()
+	service.Init()
 
 	uri := os.Getenv("DB_HOST")
 	if uri == "" {
@@ -45,14 +45,16 @@ func main() {
 	consignmentCollection := client.Database("shippy").Collection("consignments")
 
 	repository := &MongoRepository{consignmentCollection}
-	vesselClient := vesselProto.NewVesselService("shippy.vessel.service.client", srv.Client())
+
+
+	vesselClient := vesselProto.NewVesselService("shippy.vessel.service.cli", service.Client())
 	h := &handler{repository, vesselClient}
 
 	// Register handlers
-	pb.RegisterShippingServiceHandler(srv.Server(), h)
+	pb.RegisterShippingServiceHandler(service.Server(), h)
 
 	// Run the server
-	if err := srv.Run(); err != nil {
+	if err := service.Run(); err != nil {
 		fmt.Println(err)
 	}
 }
